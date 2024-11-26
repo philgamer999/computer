@@ -1,11 +1,14 @@
 import ollama
 import pyttsx3
 import speech_recognition as sr
-import winsound
+#import winsound
 import os
 
 # Define your keyword(s)
 KEYWORDS = ["computer", "musik modus", "steuer modus", "stop", "test"]
+
+# models
+MODELS = ["llama3.2", "llama2-uncensored"]
 
 # Variables
 arguments = "Du bist ein hilfreicher Assistent und kannst nur wahrheitsgemäße Antworten geben. Halte deine Antworten kurz und prägnannt. Schreibe Zahlen aus und nutze keine Abkürzungen. "
@@ -13,8 +16,8 @@ text = "Bitte wiederhole folgenden Text: 'Hallo Welt!'"
 engine_language = "de_DE"
 
 # Beep properties
-frequency = 750  
-duration = 100  
+#frequency = 750  
+#duration = 100  
 
 # Initialize recognizer
 keyword_recognizer = sr.Recognizer()
@@ -74,7 +77,7 @@ def speech_to_text():
 
 # create ollama chat request and return responce
 def ollama_chat_request(input_text):
-    response = ollama.chat(model='llama3.2', messages=[
+    response = ollama.chat(model=MODELS[0], messages=[
         {
             'role': 'user',
             'content': arguments + input_text,
@@ -98,7 +101,7 @@ def process_input(user_input):
 # await user input loop
 def await_message():
     print("Awaiting Input!")
-    winsound.Beep(frequency, duration)
+#    winsound.Beep(frequency, duration)
     user_input = speech_to_text()
     process_input(user_input)
 
@@ -136,6 +139,7 @@ def listen_for_keywords():
         except KeyboardInterrupt:
             print("Stopping...")
 
+#def setup_voice_engine(rate, volume, language, gender):
 
 # setup new voice_engine
 voice_engine = new_voice_engine()
@@ -144,14 +148,5 @@ change_volume(voice_engine, 0.50)
 change_voice(voice_engine, "de_DE", "VoiceGenderFemale")
 
 
-
-# Run the function
-listen_for_keywords()
-# start looping
-#if __name__ == "__main__":
-    #print("Type '/bye' to quit.")
-    #await_message()
-
-
-#if __name__ == "__main__":
-#    speech_to_text()
+if __name__ == "__main__":
+    listen_for_keywords()
