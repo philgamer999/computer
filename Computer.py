@@ -102,7 +102,8 @@ def process_input(user_input):
 def await_message():
     print("Awaiting Input!")
 #    winsound.Beep(frequency, duration)
-    user_input = speech_to_text()
+    #user_input = speech_to_text()
+    user_input = input();
     process_input(user_input)
 
 
@@ -149,4 +150,5 @@ change_voice(voice_engine, "de_DE", "VoiceGenderFemale")
 
 
 if __name__ == "__main__":
-    listen_for_keywords()
+    #listen_for_keywords()
+    await_message()
